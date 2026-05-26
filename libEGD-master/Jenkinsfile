@@ -1,0 +1,82 @@
+node ('') {
+    try {
+        def MASTER=false
+        if (env.BRANCH_NAME == 'master') {
+            MASTER=true
+            deleteDir()
+        }
+        def DEVELOP=false
+        if (env.BRANCH_NAME == 'develop') {
+            DEVELOP=true
+            deleteDir()
+        }
+
+        stage("SCM Checkout") {
+            checkout scm
+        }
+
+        stage("Submodule") {
+            sh '''
+                git submodule update --init --recursive
+            '''
+        }
+
+        stage("Multiarch") {
+            sh '''
+                docker run --rm --privileged multiarch/qemu-user-static:register || true
+            '''
+        }
+
+        stage("Clean") {
+            sh '''
+                make clean
+            '''
+        }
+
+        stage("Build") {
+            sh '''
+                make ARCH="amd64" build
+            '''
+        }
+
+        stage("Image") {
+            sh '''
+                make ARCH="amd64" dev_image image
+            '''
+        }
+
+        stage("Package") {
+            sh '''
+                make ARCH="amd64" package
+            '''
+        }
+
+        if(MASTER){
+            stage("Release") {
+                sh '''
+                    hack/create-github-release.sh "$(date +'%m_%d_%Y')" "Latest available from master branch built on $(date +'%m/%d/%Y %H:%M:%S')" "master" $(cat /home/jenkins/git_token)
+                '''
+            }
+        }
+        if(DEVELOP){
+            stage("Release") {
+                sh '''
+                    hack/create-github-release.sh "latest" "Latest available from develop branch built on $(date +'%m/%d/%Y %H:%M:%S')" "master" $(cat /home/jenkins/git_token)
+                '''
+            }
+        }
+
+        stage("Clean") {
+            sh '''
+                make clean
+            '''
+        }
+
+    } finally {
+        stage("Clean") {
+            sh '''
+                make clean
+            '''
+        }
+    }
+}

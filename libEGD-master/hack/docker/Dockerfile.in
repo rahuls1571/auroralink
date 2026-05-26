@@ -1,0 +1,59 @@
+# These need to be set by the Makefile in order for this build to succeed
+ARG NAME
+ARG ARCH
+ARG BUILDER_IMAGE
+
+# We want to share these variables between build stages, so declare them up here
+ARG BUILD_DIR=/tmp/${NAME}/build
+ARG INSTALL_DIR=/tmp/${NAME}/install
+
+FROM ${BUILDER_IMAGE} AS builder
+
+# We need to copy the args into this context to get them to work
+ARG BUILD_DIR
+ARG INSTALL_DIR
+
+# Copy the whole source directory in so we can do a release build into the right directory
+COPY src /tmp/${NAME}/src
+COPY hack/*.sh /tmp/${NAME}/hack/
+COPY CMakeLists.txt /tmp/${NAME}/CMakeLists.txt
+
+# Set up the directories that we will use to build and install the library
+RUN set -ex \
+    && rm -rf ${BUILD_DIR} ${INSTALL_DIR} \
+    && mkdir -p ${BUILD_DIR} ${INSTALL_DIR}
+
+# Make a release build of the application into a temporary folder
+RUN set -ex \
+    && cd ${BUILD_DIR} \
+    && cmake /tmp/${NAME} \
+        -DCMAKE_BUILD_TYPE="Release" \
+        -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}" \
+    && make --no-print-directory -j $(($(nproc) + 1)) -C ${BUILD_DIR} \
+    && make --no-print-directory -C ${BUILD_DIR} install
+
+# Strip all the libraries and binaries before copying them over
+RUN set -ex \
+    && for f in $(find ${INSTALL_DIR} -type f -a -not -name "*.h*"); do \
+        strip $f; \
+    done
+
+# Runtime image will just contain the resulting binaries and any available plugins
+FROM debian:bookworm-slim
+
+# We need to copy the args into this context to get them to work
+ARG BUILD_DIR
+ARG INSTALL_DIR
+
+COPY --from=builder ${INSTALL_DIR}/lib/*.so /usr/lib/
+COPY --from=builder ${INSTALL_DIR}/bin/ListAvailablePlugins /usr/bin/
+
+# Install Lua so that we can use the LUA plugin
+ENV DEBIAN_FRONTEND noninteractive
+RUN set -ex \
+    && apt-get update -y && apt-get install -y --no-install-recommends \
+        libssl3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Register the entrypoint as the ListAvailablePlugins app
+ENTRYPOINT ["/usr/bin/ListAvailablePlugins"]

@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ProducedData EGDSpecVersion="3.04" xmlns="http://geindustrial.com/EGD">
+	<Producer Name="CRM6_SVR" ProducerId="107325632" Pvn="1" ConfigTimeSecs="1563558876" ConfigTimeNSecs="18340800">
+		<IPAddress HostName="CRM6_SVR" Value="192.168.201.6" NetworkName="PDH" SubnetMask="255.255.255.0">
+			<EGDConfigExtension Company="http://pdweb.salem.ge.com" ExtensionCode="NetworkAdapterInfo"><NetworkAdapterInfo NetworkSwitch="" NetworkSwitchPort="0" BackupNetworkSwitch="" BackupNetworkSwitchPort="0" HardwareRedundant="false" NetAdapterNum="1" SecurityDeviceId="CRM6_SVR-PDH" /></EGDConfigExtension>
+		</IPAddress>
+		<IPAddress HostName="uCRM6_SVR" Value="192.168.101.6" NetworkName="UDH" SubnetMask="255.255.255.0">
+			<EGDConfigExtension Company="http://pdweb.salem.ge.com" ExtensionCode="NetworkAdapterInfo"><NetworkAdapterInfo NetworkSwitch="" NetworkSwitchPort="0" BackupNetworkSwitch="" BackupNetworkSwitchPort="0" HardwareRedundant="false" NetAdapterNum="0" SecurityDeviceId="CRM6_SVR-UDH" /></EGDConfigExtension>
+		</IPAddress>
+		<Exchange ExchangeId="1" SigMajor="9" PeriodSecs="1" PeriodNSecs="0" ConfigTimeSecs="1562638485" ConfigTimeNSecs="0" DataLength="20" Page="_Status">
+			<Destination IPAddress="192.168.101.255" NetworkName="UDH" />
+			<Var Name="CurrentLocalTimeSec" DType="UDINT" VOffs="32" />
+			<Var Name="CurrentUTCTimeSec" DType="UDINT" VOffs="64" />
+			<Var Name="IsNtpSynced_R" DType="BOOL" VOffs="0" />
+			<Var Name="IsUdhEgdHealthy_R" DType="BOOL" VOffs="1" />
+			<Var Name="L3Diag_R" DType="BOOL" VOffs="2" />
+			<Var Name="MajorRevision_R" DType="UDINT" VOffs="96" />
+			<Var Name="MinorRevision_R" DType="UDINT" VOffs="128" />
+			<EGDConfigExtension Company="http://pdweb.salem.ge.com" ExtensionCode="GeSalemProdInfo"><GeSalemExchangeInfo HighWaterBooleanBits="3" BooleanEndOfFree="3" /></EGDConfigExtension>
+			<EGDConfigExtension Company="http://pdweb.salem.ge.com" ExtensionCode="ExchangeInfo"><GeSalemExchInfo IsStatPage="true" AdapterInfo="True,False,False,False" /></EGDConfigExtension>
+		</Exchange>
+		<Exchange ExchangeId="2" SigMajor="16" PeriodSecs="0" PeriodNSecs="10000000" ConfigTimeSecs="1563558874" ConfigTimeNSecs="0" DataLength="36" Page="DG_OUT">
+			<Destination IPAddress="192.168.101.255" NetworkName="UDH" />
+			<Var Name="CPD_VIRTUAL_SENSOR" DType="REAL" Writable="true" VOffs="192" />
+			<Var Name="CPD_VIRTUAL_SENSOR_EST" DType="REAL" Writable="true" VOffs="96" />
+			<Var Name="CPD_VS_ENABLE" DType="BOOL" Writable="true" VOffs="0" />
+			<Var Name="CTD_VIRTUAL_SENSOR" DType="REAL" Writable="true" VOffs="256" />
+			<Var Name="CTD_VIRTUAL_SENSOR_EST" DType="REAL" Writable="true" VOffs="32" />
+			<Var Name="CTD_VS_ENABLE" DType="BOOL" Writable="true" VOffs="1" />
+			<Var Name="DG_Global_Detection" DType="BOOL" Writable="true" VOffs="2" />
+			<Var Name="DG_Global_Score" DType="REAL" Writable="true" VOffs="128" />
+			<Var Name="DG_Heartbeat_Controls" DType="REAL" Writable="true" VOffs="224" />
+			<Var Name="TTXM_VIRTUAL_SENSOR" DType="REAL" Writable="true" VOffs="64" />
+			<Var Name="TTXM_VIRTUAL_SENSOR_EST" DType="REAL" Writable="true" VOffs="160" />
+			<Var Name="TTXM_VS_ENABLE" DType="BOOL" Writable="true" VOffs="3" />
+			<EGDConfigExtension Company="http://pdweb.salem.ge.com" ExtensionCode="GeSalemProdInfo"><GeSalemExchangeInfo HighWaterBooleanBits="4" BooleanEndOfFree="3" /></EGDConfigExtension>
+			<EGDConfigExtension Company="http://pdweb.salem.ge.com" ExtensionCode="ExchangeInfo"><GeSalemExchInfo AdapterInfo="True,False,False,False" /></EGDConfigExtension>
+		</Exchange>
+		<Exchange ExchangeId="3" SigMajor="15" PeriodSecs="0" PeriodNSecs="40000000" ConfigTimeSecs="1563473064" ConfigTimeNSecs="0" DataLength="148" Page="DG_IN">
+			<Destination IPAddress="192.168.201.255" NetworkName="PDH" />
+			<Var Name="DG_AFPAP" DType="REAL" VOffs="512" />
+			<Var Name="DG_ATID" DType="REAL" VOffs="992" />
+			<Var Name="DG_CA_CRT" DType="REAL" VOffs="544" />
+			<Var Name="DG_CNTR_HB" DType="DINT" VOffs="384" />
+			<Var Name="DG_CPDABS" DType="REAL" VOffs="704" />
+			<Var Name="DG_CPR" DType="REAL" VOffs="480" />
+			<Var Name="DG_CQBH" DType="REAL" VOffs="256" />
+			<Var Name="DG_CQBHP" DType="REAL" VOffs="288" />
+			<Var Name="DG_CSBHX1" DType="REAL" VOffs="320" />
+			<Var Name="DG_CSBHX2" DType="REAL" VOffs="352" />
+			<Var Name="DG_CSGV" DType="REAL" VOffs="192" />
+			<Var Name="DG_CSRGV" DType="REAL" VOffs="800" />
+			<Var Name="DG_CSRGVOUT" DType="REAL" VOffs="832" />
+			<Var Name="DG_CSRIHOUT1" DType="REAL" VOffs="160" />
+			<Var Name="DG_CSRIHOUT2" DType="REAL" VOffs="736" />
+			<Var Name="DG_CSVSV" DType="REAL" VOffs="768" />
+			<Var Name="DG_CTD" DType="REAL" VOffs="928" />
+			<Var Name="DG_CTIM" DType="REAL" VOffs="576" />
+			<Var Name="DG_DWATT" DType="REAL" VOffs="608" />
+			<Var Name="DG_FPG2" DType="REAL" VOffs="640" />
+			<Var Name="DG_FQG" DType="REAL" VOffs="672" />
+			<Var Name="DG_FSG1" DType="REAL" VOffs="448" />
+			<Var Name="DG_FSG2" DType="REAL" VOffs="32" />
+			<Var Name="DG_FSG3" DType="REAL" VOffs="224" />
+			<Var Name="DG_FSG4" DType="REAL" VOffs="1120" />
+			<Var Name="DG_FSR" DType="REAL" VOffs="1152" />
+			<Var Name="DG_FSRVCG2OUT" DType="REAL" VOffs="1024" />
+			<Var Name="DG_FSRVCGC1" DType="REAL" VOffs="864" />
+			<Var Name="DG_FSRVCGC2" DType="REAL" VOffs="1088" />
+			<Var Name="DG_FSRVCGC3" DType="REAL" VOffs="416" />
+			<Var Name="DG_FSRVCGC4" DType="REAL" VOffs="896" />
+			<Var Name="DG_L90PSEL" DType="REAL" VOffs="128" />
+			<Var Name="DG_LUNTR" DType="BOOL" VOffs="0" />
+			<Var Name="DG_LUTR" DType="BOOL" VOffs="1" />
+			<Var Name="DG_PERM_DIGITAL_GHOST" DType="BOOL" VOffs="2" />
+			<Var Name="DG_RHUM" DType="REAL" VOffs="960" />
+			<Var Name="DG_TNH" DType="REAL" VOffs="1056" />
+			<Var Name="DG_TNR" DType="REAL" VOffs="64" />
+			<Var Name="DG_TTXM" DType="REAL" VOffs="96" />
+			<EGDConfigExtension Company="http://pdweb.salem.ge.com" ExtensionCode="GeSalemProdInfo"><GeSalemExchangeInfo HighWaterBooleanBits="3" BooleanEndOfFree="3" /></EGDConfigExtension>
+			<EGDConfigExtension Company="http://pdweb.salem.ge.com" ExtensionCode="ExchangeInfo"><GeSalemExchInfo AdapterInfo="False,True,False,False" /></EGDConfigExtension>
+		</Exchange>
+	</Producer>
+</ProducedData>
